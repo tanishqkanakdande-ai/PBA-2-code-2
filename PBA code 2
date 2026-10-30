@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Read CSV file
+df = pd.read_csv("sales.csv")
+
+# 2. Total and average sales
+print("Total Sales:", df["Sales"].sum())
+print("Average Sales:", df["Sales"].mean())
+
+# 3. Month with highest sales
+monthly = df.groupby("Month")["Sales"].sum()
+print("Highest Sales Month:", monthly.idxmax())
+
+# 4. Group sales by category
+category = df.groupby("Category")["Sales"].sum()
+print("\nSales by Category:")
+print(category)
+
+# 5. Bar chart
+category.plot(kind="bar", title="Sales by Category")
+plt.show()
+
+# 6. Line chart
+monthly.plot(kind="line", marker="o", title="Monthly Sales Trend")
+plt.show()
+
+# 7. Pie chart
+category.plot(kind="pie", autopct="%1.1f%%",
+              title="Category Sales Contribution")
+plt.ylabel("")
+plt.show()
